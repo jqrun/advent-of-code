@@ -2,14 +2,17 @@ use std::cmp;
 use std::fs;
 
 fn main() {
-    println!("{}", get_most_cals(parse_input("src/day-01/example.txt")));
-    println!("{}", get_most_cals(parse_input("src/day-01/puzzle.txt")));
+    let example = parse_input("src/day-01/example.txt");
+    let puzzle = parse_input("src/day-01/puzzle.txt");
 
-    println!("{}", get_top_3_cals(parse_input("src/day-01/example.txt")));
-    println!("{}", get_top_3_cals(parse_input("src/day-01/puzzle.txt")));
+    println!("{}", get_most_cals(&example));
+    println!("{}", get_most_cals(&puzzle));
+
+    println!("{}", get_top_3_cals(&example));
+    println!("{}", get_top_3_cals(&puzzle));
 }
 
-fn get_top_3_cals(inventories: Vec<Vec<i32>>) -> i32 {
+fn get_top_3_cals(inventories: &Vec<Vec<i32>>) -> i32 {
     let mut summed: Vec<i32> = inventories
         .iter()
         .map(|inventory| inventory.iter().sum())
@@ -20,7 +23,7 @@ fn get_top_3_cals(inventories: Vec<Vec<i32>>) -> i32 {
     summed.iter().rev().take(3).sum()
 }
 
-fn get_most_cals(inventories: Vec<Vec<i32>>) -> i32 {
+fn get_most_cals(inventories: &Vec<Vec<i32>>) -> i32 {
     let mut max: i32 = 0;
 
     for inventory in inventories {
