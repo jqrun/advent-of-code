@@ -13,22 +13,33 @@ const DIRS: Record<MoveDirection, Coord> = {
   L: [0, -1],
 };
 
-function countTailVisits(moves: Move[]): number {
-  const visited = new Set();
-  const head: Coord = [0, 0];
-  const tail: Coord = [0, 0];
+function countTailVisitsWithKnots(moves: Move[], numKnots = 10): number {
+  const visited = new Set([serialize([0, 0])]);
+  const knots: Coord[] = [...Array(numKnots)].map(() => [0, 0]);
 
   for (const [dir, distance] of moves) {
     for (let i = 0; i < distance; i++) {
       const [xMod, yMod] = DIRS[dir];
-      const headBeforeMove: Coord = [...head];
-      head[0] += xMod;
-      head[1] += yMod;
 
-      visited.add(serialize(tail));
+      for (let j = 0; j < knots.length; j++) {
+        const curr = knots[j];
+        if (j === 0) {
+          curr[0] += xMod;
+          curr[1] += yMod;
+          continue;
+        }
 
-      if (Math.abs(head[0] - tail[0]) > 1 || Math.abs(head[1] - tail[1]) > 1) {
-        tail.splice(0, 2, ...headBeforeMove);
+        const prev = knots[j - 1];
+        const notTouching =
+          Math.abs(prev[0] - curr[0]) > 1 || Math.abs(prev[1] - curr[1]) > 1;
+        const notSameX = prev[0] !== curr[0];
+        const notSameY = prev[1] !== curr[1];
+        if (notTouching) {
+          if (notSameX) curr[0] += prev[0] - curr[0] > 0 ? 1 : -1;
+          if (notSameY) curr[1] += prev[1] - curr[1] > 0 ? 1 : -1;
+        }
+
+        if (j === knots.length - 1) visited.add(serialize(curr));
       }
     }
   }
@@ -52,10 +63,8 @@ function parseFile(path: string): Move[] {
 const exampleInput = parseFile('./src/day-09/example.txt');
 const puzzleInput = parseFile('./src/day-09/puzzle.txt');
 
-// console.log(JSON.stringify(exampleInput, null, 2));
+console.log(countTailVisitsWithKnots(exampleInput, 2));
+console.log(countTailVisitsWithKnots(puzzleInput, 2));
 
-console.log(countTailVisits(exampleInput));
-console.log(countTailVisits(puzzleInput));
-
-// console.log(functionB(exampleInput));
-// console.log(functionB(puzzleInput));
+console.log(countTailVisitsWithKnots(exampleInput, 10));
+console.log(countTailVisitsWithKnots(puzzleInput, 10));
