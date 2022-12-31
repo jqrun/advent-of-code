@@ -13,6 +13,7 @@ module.exports = {
         singleQuote: true,
       },
     ],
+    'no-constant-condition': 0,
   },
   root: true,
   env: {
