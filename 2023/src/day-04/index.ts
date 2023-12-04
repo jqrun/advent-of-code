@@ -39,11 +39,18 @@ function parseFile(path: string): number[][][] {
     );
 }
 
+function timeExecutionMs(fn: () => void): void {
+  const start = performance.now();
+  fn();
+  const end = performance.now();
+  console.log(`Execution time: ${(end - start).toFixed(4)}ms\n`);
+}
+
 const exampleInput = parseFile('./src/day-04/example.txt');
 const puzzleInput = parseFile('./src/day-04/puzzle.txt');
 
-console.log(getWinningPoints(exampleInput));
-console.log(getWinningPoints(puzzleInput));
+timeExecutionMs(() => console.log(getWinningPoints(exampleInput)));
+timeExecutionMs(() => console.log(getWinningPoints(puzzleInput)));
 
-console.log(getTotalCards(exampleInput));
-console.log(getTotalCards(puzzleInput));
+timeExecutionMs(() => console.log(getTotalCards(exampleInput)));
+timeExecutionMs(() => console.log(getTotalCards(puzzleInput)));
