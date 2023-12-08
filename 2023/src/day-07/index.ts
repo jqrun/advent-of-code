@@ -64,33 +64,18 @@ const getHandType = (() => {
       counts[card]++;
     }
 
+    if (withJokers && counts['J'] && counts['J'] < 5) {
+      const jokers = counts['J'];
+      delete counts['J'];
+      const topCard = Object.entries(counts).toSorted(
+        (a, b) => b[1] - a[1],
+      )[0][0];
+      counts[topCard] += jokers;
+    }
+
     const groups = Array(5).fill(0);
     for (const count of Object.values(counts)) {
       groups[count - 1]++;
-    }
-
-    if (withJokers) {
-      const jokers = counts['J'];
-      if (jokers) {
-        groups[jokers - 1]--;
-        if (jokers > 3) {
-          groups[4] = 1;
-        } else if (jokers === 3) {
-          if (groups[1]) groups[4] = 1;
-          else groups[3] = 1;
-        } else if (jokers === 2) {
-          if (groups[2]) groups[4] = 1;
-          if (groups[1]) groups[3] = 1;
-          else groups[2] = 1;
-        } else {
-          if (groups[3]) groups[4] = 1;
-          else if (groups[2]) groups[3] = 1;
-          else if (groups[1]) {
-            groups[1]--;
-            groups[2] = 1;
-          } else groups[1]++;
-        }
-      }
     }
 
     let type = 1; // high card
