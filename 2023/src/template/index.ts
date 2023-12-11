@@ -11,13 +11,13 @@ function timeExecutionMs(fn: () => void): void {
   console.log(`Execution time: ${(end - start).toFixed(4)}ms\n`);
 }
 
-const exampleInput = parseFile('./src/day-TODO/example.txt');
-const puzzleInput = parseFile('./src/day-TODO/puzzle.txt');
+const example = parseFile('./src/day-TODO/example.txt');
+const puzzle = parseFile('./src/day-TODO/puzzle.txt');
 
-// console.log(JSON.stringify(exampleInput, null, 2));
+// console.log(JSON.stringify(example, null, 2));
 
-// timeExecutionMs(() => console.log(functionA(exampleInput)));
-// timeExecutionMs(() => console.log(functionA(puzzleInput)));
+// timeExecutionMs(() => console.log(functionA(example)));
+// timeExecutionMs(() => console.log(functionA(puzzle)));
 
-// timeExecutionMs(() => console.log(functionB(exampleInput)));
-// timeExecutionMs(() => console.log(functionB(puzzleInput)));
+// timeExecutionMs(() => console.log(functionB(example)));
+// timeExecutionMs(() => console.log(functionB(puzzle)));
