@@ -1,14 +1,14 @@
 import { readFileSync } from 'node:fs';
 
 function memoize<Args extends unknown[], Result>(
-  func: (...args: Args) => Result,
+  fn: (...args: Args) => Result,
 ): (...args: Args) => Result {
   const memo: Record<string, Result> = {};
 
   return (...args) => {
     const key = JSON.stringify(args);
     if (memo[key]) return memo[key];
-    const result = func(...args);
+    const result = fn(...args);
     memo[key] = result;
     return result;
   };
