@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs';
+import { format } from 'pretty-format';
 
 function parseFile(path: string): string[] {
   return readFileSync(path, 'utf-8').split('\n');
@@ -14,7 +15,7 @@ function timeExecutionMs(fn: () => void): void {
 const example = parseFile('./src/day-TODO/example.txt');
 const puzzle = parseFile('./src/day-TODO/puzzle.txt');
 
-// console.log(JSON.stringify(example, null, 2));
+console.log(format(example, { min: true }));
 
 // timeExecutionMs(() => console.log(functionA(example)));
 // timeExecutionMs(() => console.log(functionA(puzzle)));
