@@ -1,3 +1,4 @@
+import time
 import pickle
 
 
@@ -32,11 +33,18 @@ def parse_file(path):
     return [[int(x) for x in line.split()] for line in lines]
 
 
+def time_and_print(func, *args):
+    start = time.time()
+    print(func(*args))
+    end = time.time()
+    print(f"({end - start} seconds)\n")
+
+
 example = parse_file("day-01/example.txt")
 puzzle = parse_file("day-01/puzzle.txt")
 
-print(get_total_distance(example))
-print(get_total_distance(puzzle))
+time_and_print(get_total_distance, example)
+time_and_print(get_total_distance, puzzle)
 
-print(get_similarity(example))
-print(get_similarity(puzzle))
+time_and_print(get_similarity, example)
+time_and_print(get_similarity, puzzle)
