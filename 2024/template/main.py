@@ -11,9 +11,9 @@ def parse_file(path):
     return [line for line in lines]
 
 
-def time_and_print(func, *args):
+def time_and_print(func, *args, **kwargs):
     start = time.time()
-    print(func(*args))
+    print(func(*args, **kwargs))
     end = time.time()
     print(f"({end - start} seconds)\n")
 
