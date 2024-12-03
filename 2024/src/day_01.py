@@ -1,5 +1,4 @@
-import time
-import pickle
+import common
 
 
 def get_counts(list):
@@ -29,22 +28,15 @@ def get_total_distance(locations):
 
 
 def parse_file(path):
-    lines = open(path, "r").read().split("\n")
+    lines = common.open_relative_path(path).split("\n")
     return [[int(x) for x in line.split()] for line in lines]
 
 
-def time_and_print(func, *args):
-    start = time.time()
-    print(func(*args))
-    end = time.time()
-    print(f"({end - start} seconds)\n")
+example = parse_file("./inputs/day_01_example.txt")
+puzzle = parse_file("./inputs/day_01_puzzle.txt")
 
+common.time_and_print(get_total_distance, example)
+common.time_and_print(get_total_distance, puzzle)
 
-example = parse_file("day-01/example.txt")
-puzzle = parse_file("day-01/puzzle.txt")
-
-time_and_print(get_total_distance, example)
-time_and_print(get_total_distance, puzzle)
-
-time_and_print(get_similarity, example)
-time_and_print(get_similarity, puzzle)
+common.time_and_print(get_similarity, example)
+common.time_and_print(get_similarity, puzzle)

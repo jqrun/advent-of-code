@@ -1,5 +1,4 @@
-import time
-import pickle
+import common
 
 
 def is_safe_delta(delta):
@@ -29,22 +28,15 @@ def get_num_safe(levels, skippable=False):
 
 
 def parse_file(path):
-    lines = open(path, "r").read().split("\n")
+    lines = common.open_relative_path(path).split("\n")
     return [list(map(int, line.split())) for line in lines]
 
 
-def time_and_print(func, *args, **kwargs):
-    start = time.time()
-    print(func(*args, **kwargs))
-    end = time.time()
-    print(f"({end - start} seconds)\n")
+example = parse_file("./inputs/day_02_example.txt")
+puzzle = parse_file("./inputs/day_02_puzzle.txt")
 
+common.time_and_print(get_num_safe, example)
+common.time_and_print(get_num_safe, puzzle)
 
-example = parse_file("day-02/example.txt")
-puzzle = parse_file("day-02/puzzle.txt")
-
-time_and_print(get_num_safe, example)
-time_and_print(get_num_safe, puzzle)
-
-time_and_print(get_num_safe, example, skippable=True)
-time_and_print(get_num_safe, puzzle, skippable=True)
+common.time_and_print(get_num_safe, example, skippable=True)
+common.time_and_print(get_num_safe, puzzle, skippable=True)
