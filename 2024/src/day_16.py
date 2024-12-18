@@ -1,5 +1,5 @@
 import common
-from heapq import heapify, heappush, heappop
+from heapq import heappush, heappop
 
 DIRS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
