@@ -1,0 +1,26 @@
+Register A: 47792830
+Register B: 0
+Register C: 0
+
+Program: 2,4,1,5,7,5,1,6,4,3,5,5,0,3,3,0
+
+0   B = A % 8
+2   B = B XOR 5
+4   C = A // 2^B
+6   B = B XOR 6
+8   B = B XOR C
+10  Output B % 8
+12  A = A // 8
+14  Return to start if A == 0
+
+
+0   B = A % 8
+        B is the last 3 bits of A
+2   B = B XOR 5
+4   C = A // 2^B
+6   B = B XOR 6
+8   B = B XOR C
+10  Output B % 8
+12  A = A // 8
+        Remove last 3 bits of A
+14  Return to start if A == 0
